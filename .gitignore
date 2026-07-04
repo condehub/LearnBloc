@@ -1,0 +1,71 @@
+# ==========================================
+# Root / Monorepo Config
+# ==========================================
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.idea/
+.vscode/
+
+# ==========================================
+# Security / Secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.keystore
+*.jks
+*.p12
+*.pfx
+secrets.json
+
+# ==========================================
+# Backend (Fastify / Node.js / Drizzle)
+# ==========================================
+backend/node_modules/
+backend/dist/
+backend/build/
+backend/coverage/
+backend/.nyc_output/
+*.sqlite
+*.sqlite3
+*.db
+
+# ==========================================
+# Mobile (Expo / React Native)
+# ==========================================
+mobile/node_modules/
+mobile/.expo/
+mobile/dist/
+mobile/web-build/
+mobile/coverage/
+mobile/.jest/
+mobile/ios/build/
+mobile/android/build/
+mobile/android/app/build/
+mobile/android/.gradle
+mobile/android/.idea
+
+# Expo and RN specific cache
+.expo/
+.expo-shared/
+*.jsc
+*.jsbundle
+*.map
+
+# Metro Bundler
+.metro-cache/
+.bmb/
+
+# ==========================================
+# Local Documentation / Specs (Do Not Push)
+# ==========================================
+*-spec.md
+compendium/
+walkthrough.md
