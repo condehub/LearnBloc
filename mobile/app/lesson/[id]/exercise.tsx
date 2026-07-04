@@ -50,7 +50,7 @@ export default function ExerciseScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
-  const { data: lesson, isLoading } = useQuery({
+  const { data: lesson, isLoading } = useQuery<any>({
     queryKey: ['lesson', id],
     queryFn: () => api.get(`/lessons/${id}`),
   });

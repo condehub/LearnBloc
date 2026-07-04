@@ -39,7 +39,7 @@ export default function LessonScreen() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
   
-  const { data: lesson, isLoading } = useQuery({
+  const { data: lesson, isLoading } = useQuery<any>({
     queryKey: ['lesson', id],
     queryFn: () => api.get(`/lessons/${id}`),
   });

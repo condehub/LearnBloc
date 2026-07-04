@@ -99,7 +99,7 @@ const BadgeName = styled.Text`
 export default function HomeScreen() {
   const { user } = useAuthStore();
 
-  const { data: activityData, isLoading, refetch } = useQuery({
+  const { data: activityData, isLoading, refetch } = useQuery<any>({
     queryKey: ['activity'],
     queryFn: () => api.get('/user/activity'),
   });

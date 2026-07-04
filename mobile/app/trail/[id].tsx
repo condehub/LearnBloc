@@ -74,7 +74,7 @@ export default function TrailDetailScreen() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
   
-  const { data: trail, isLoading } = useQuery({
+  const { data: trail, isLoading } = useQuery<any>({
     queryKey: ['trail', id],
     queryFn: () => api.get(`/trails/${id}`),
   });

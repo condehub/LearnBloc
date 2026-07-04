@@ -51,7 +51,7 @@ const Description = styled.Text`
 export default function TrailsScreen() {
   const router = useRouter();
   
-  const { data: trails, isLoading } = useQuery({
+  const { data: trails, isLoading } = useQuery<any>({
     queryKey: ['trails'],
     queryFn: () => api.get('/trails'),
   });
