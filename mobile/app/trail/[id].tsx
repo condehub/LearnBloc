@@ -30,29 +30,29 @@ const Description = styled.Text`
 `;
 
 const LessonCard = styled.View<{ isLocked: boolean; isCompleted: boolean }>`
-  background-color: ${({ theme, isLocked }) => (isLocked ? theme.colors.background : theme.colors.surface)};
-  margin: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
-  border-radius: ${({ theme }) => theme.borderRadius.md}px;
-  padding: ${({ theme }) => theme.spacing.md}px;
+  background-color: ${(props: any) => (props.isLocked ? props.theme.colors.background : props.theme.colors.surface)};
+  margin: ${(props: any) => props.theme.spacing.sm}px ${(props: any) => props.theme.spacing.md}px;
+  border-radius: ${(props: any) => props.theme.borderRadius.md}px;
+  padding: ${(props: any) => props.theme.spacing.md}px;
   border-width: 1px;
-  border-color: ${({ theme, isCompleted }) => (isCompleted ? theme.colors.success : theme.colors.border)};
+  border-color: ${(props: any) => (props.isCompleted ? props.theme.colors.success : props.theme.colors.border)};
   flex-direction: row;
   align-items: center;
-  opacity: ${({ isLocked }) => (isLocked ? 0.6 : 1)};
+  opacity: ${(props: any) => (props.isLocked ? 0.6 : 1)};
 `;
 
 const IconContainer = styled.View<{ isLocked: boolean; isCompleted: boolean }>`
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  background-color: ${({ theme, isLocked, isCompleted }) => {
-    if (isCompleted) return theme.colors.success + '30';
-    if (isLocked) return theme.colors.border;
-    return theme.colors.primaryLight + '30';
+  background-color: ${(props: any) => {
+    if (props.isCompleted) return props.theme.colors.success + '30';
+    if (props.isLocked) return props.theme.colors.border;
+    return props.theme.colors.primaryLight + '30';
   }};
   align-items: center;
   justify-content: center;
-  margin-right: ${({ theme }) => theme.spacing.md}px;
+  margin-right: ${(props: any) => props.theme.spacing.md}px;
 `;
 
 const LessonInfo = styled.View`
@@ -93,7 +93,7 @@ export default function TrailDetailScreen() {
       <FlatList
         ListHeaderComponent={
           <HeaderInfo>
-            <Title>{trail.title}</Title>
+            <Title>{trail.name}</Title>
             <Description>{trail.description}</Description>
           </HeaderInfo>
         }

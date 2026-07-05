@@ -67,7 +67,7 @@ export default function TrailsScreen() {
   return (
     <Container>
       <FlatList
-        data={trails}
+        data={trails?.trails || []}
         keyExtractor={(item: any) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => router.push(`/trail/${item.id}`)}>
@@ -76,7 +76,7 @@ export default function TrailsScreen() {
                 <MapIcon color="#4338ca" size={24} />
               </IconContainer>
               <Info>
-                <Title>{item.title}</Title>
+                <Title>{item.name}</Title>
                 <Description numberOfLines={2}>{item.description}</Description>
               </Info>
               <ChevronRight color="#94a3b8" size={20} />
