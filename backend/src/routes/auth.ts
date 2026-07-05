@@ -72,12 +72,12 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
       .where(eq(users.email, email))
 
     if (!user) {
-      return reply.code(401).send({ error: 'Invalid credentials' })
+      return reply.code(404).send({ error: 'Usuário não cadastrado' })
     }
 
     const passwordValid = await bcrypt.compare(password, user.passwordHash)
     if (!passwordValid) {
-      return reply.code(401).send({ error: 'Invalid credentials' })
+      return reply.code(401).send({ error: 'Senha incorreta' })
     }
 
     const accessToken = app.jwt.sign({ sub: user.id, email: user.email }, { expiresIn: process.env.JWT_EXPIRES_IN ?? '15m' })
@@ -145,12 +145,18 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
     return reply.send({ accessToken: newAccessToken, refreshToken: newRefreshToken })
   })
 
-  // ─── Logout ───────────────────────────────────────────────────────────────
-  app.post('/auth/logout', { preHandler: [async (req, rep) => { try { await req.jwtVerify() } catch { rep.code(401).send() } }] }, async (request, reply) => {
-    const parsed = refreshSchema.safeParse(request.body)
-    if (parsed.success) {
-      await db.delete(refreshTokens).where(eq(refreshTokens.token, parsed.data.refreshToken))
+  // ─── Me ───────────────────────────────────────────────────────────────────
+  app.get('/auth/me', { preHandler: [async (req, rep) => { try { await req.jwtVerify() } catch { rep.code(401).send({ error: 'Unauthorized' }) } }] }, async (request, reply) => {
+    const payload = request.user as { sub: number }
+    const [user] = await db
+      .select({ id: users.id, name: users.name, email: users.email, xp: users.xp, level: users.level, streak: users.streak, lastActivityDate: users.lastActivityDate })
+      .from(users)
+      .where(eq(users.id, payload.sub))
+
+    if (!user) {
+      return reply.code(404).send({ error: 'User not found' })
     }
-    return reply.send({ message: 'Logged out successfully' })
+
+    return reply.send({ user })
   })
 }
